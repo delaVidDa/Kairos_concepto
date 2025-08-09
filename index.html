@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIRÓS - Tu Momento de Transformación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @keyframes wave-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(196, 164, 124, 0.1));
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(212, 175, 55, 0.3) 50%, 
+                transparent 70%);
+            animation: wave-rotate 3s linear infinite;
+            transform-origin: center;
+        }
+
+        .wave:nth-child(2) {
+            background: linear-gradient(-45deg, 
+                transparent 30%, 
+                rgba(196, 164, 124, 0.4) 50%, 
+                transparent 70%);
+            animation: wave-rotate 4s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            background: linear-gradient(90deg, 
+                transparent 40%, 
+                rgba(212, 175, 55, 0.2) 50%, 
+                transparent 60%);
+            animation: wave-rotate 5s linear infinite;
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #ffffff;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #d4af37, #c4a47c, #d4af37, #b8860b, #d4af37);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGradient 4s ease infinite;
+            text-shadow: 0 2px 6px rgba(212, 175, 55, 0.4), 
+                         0 4px 12px rgba(212, 175, 55, 0.25),
+                         0 6px 18px rgba(212, 175, 55, 0.15),
+                         0 1px 3px rgba(212, 175, 55, 0.5);
+            filter: drop-shadow(0 3px 6px rgba(212, 175, 55, 0.2)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #666666;
+            font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin: 2rem auto;
+            max-width: 800px;
+            font-style: italic;
+            padding: 0 2rem;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1), 
+                         0 2px 6px rgba(212, 175, 55, 0.4),
+                         0 4px 12px rgba(212, 175, 55, 0.25);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.15));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .seccion-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seccion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #c4a47c, #d4af37);
+            animation: textGradient 3s ease infinite;
+        }
+
+        .seccion-title {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            text-shadow: 0 2px 6px rgba(212, 175, 55, 0.35), 
+                         0 4px 12px rgba(212, 175, 55, 0.2),
+                         0 1px 3px rgba(212, 175, 55, 0.5);
+            filter: drop-shadow(0 3px 6px rgba(212, 175, 55, 0.15)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+            position: relative;
+            z-index: 1;
+        }
+
+        .seccion-subtitle {
+            font-size: 1.1rem;
+            color: #666666;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-destacado {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(196, 164, 124, 0.05));
+            border-left: 4px solid #d4af37;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-destacado h3 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 6px rgba(212, 175, 55, 0.3), 
+                         0 4px 12px rgba(212, 175, 55, 0.15),
+                         0 1px 3px rgba(212, 175, 55, 0.4);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.12)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.08));
+        }
+
+        .programas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .programa-item {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .programa-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .programa-item h4 {
+            color: #d4af37;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.25), 
+                         0 4px 8px rgba(212, 175, 55, 0.12),
+                         0 1px 2px rgba(212, 175, 55, 0.3);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.1)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+        }
+
+        .programa-duracion {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .frecuencias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .frecuencia-item {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .frecuencia-item:hover {
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+            transform: translateY(-3px);
+        }
+
+        .frecuencia-titulo {
+            color: #d4af37;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.22), 
+                         0 4px 8px rgba(212, 175, 55, 0.12),
+                         0 1px 2px rgba(212, 175, 55, 0.25);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.09)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+        }
+
+        .frecuencia-hz {
+            background: linear-gradient(45deg, #d4af37, #c4a47c);
+            color: #1a1a1a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            text-shadow: none;
+        }
+
+        .frecuencia-descripcion {
+            color: #555555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .beneficios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .beneficio-item {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 1.8rem;
+            text-align: left;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .beneficio-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .beneficio-item h4 {
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.2), 
+                         0 4px 8px rgba(212, 175, 55, 0.12),
+                         0 1px 2px rgba(212, 175, 55, 0.25);
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.08)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+        }
+
+        .contacto-footer {
+            text-align: center;
+            background: #f8f8f8;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .contacto-footer h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            text-shadow: 0 2px 6px rgba(212, 175, 55, 0.3), 
+                         0 4px 12px rgba(212, 175, 55, 0.15),
+                         0 1px 3px rgba(212, 175, 55, 0.4);
+            filter: drop-shadow(0 3px 6px rgba(212, 175, 55, 0.12)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.08));
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(45deg, #128C7E, #25D366);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.2rem; }
+            .seccion-title { font-size: 1.8rem; }
+            .container { padding: 1rem; }
+            .seccion-card { padding: 1.5rem; }
+            .programas-grid { grid-template-columns: 1fr; }
+            .frecuencias-grid { grid-template-columns: 1fr; }
+            .beneficios-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header fade-in">
+        <div class="logo-container">
+            <div class="logo">
+                <div class="logo-circle">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+            </div>
+        </div>
+        <h1>KAIRÓS</h1>
+        <p>Disciplina Energética del Momento Presente</p>
+    </div>
+
+    <div class="container">
+        <p class="intro fade-in">
+            "El momento creativo que te lleva al presente. Una innovadora técnica de regeneración energética que te ancla en el aquí y ahora."
+        </p>
+
+        <!-- ¿Qué es KAIRÓS? con información ampliada -->
+        <div class="seccion-card fade-in">
+            <h2 class="seccion-title">¿Qué es KAIRÓS?</h2>
+            <p class="seccion-subtitle">Una disciplina que aprovecha el momento oportuno para transformar tu energía</p>
+            
+            <div class="hero-destacado">
+                <h3>Disciplina Energética del Momento Presente</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">El momento creativo que te lleva al presente. Una innovadora técnica de regeneración sonora que te ancla en el aquí y ahora mediante el poder transformador de tu voz.</p>
+                <p style="font-style: italic; font-size: 1rem; color: #c4a47c;">KAIRÓS integra técnicas ancestrales de vocalización con neurociencia moderna para crear transformaciones instantáneas y duraderas en el momento perfecto.</p>
+            </div>
+
+            <div class="beneficios-grid">
+                <div class="beneficio-item">
+                    <h4>Desintoxicación Digital del Presente</h4>
+                    <p>Libera la sobrecarga mental de pantallas y reconecta con el momento actual mediante frecuencias específicas que resetean tu sistema nervioso.</p>
+                </div>
+                
+                <div class="beneficio-item">
+                    <h4>Liberación Creativa Instantánea</h4>
+                    <p>Desbloquea tu potencial artístico aprovechando el momento creativo perfecto a través de vibraciones terapéuticas que activan tu genio interior.</p>
+                </div>
+                
+                <div class="beneficio-item">
+                    <h4>Regeneración Energética Presente</h4>
+                    <p>Redirige la energía estancada hacia un flujo vital saludable, anclándote en el aquí y ahora mediante técnicas de respiración vocal.</p>
+                </div>
+                
+                <div class="beneficio-item">
+                    <h4>Bienestar Integral Temporal</h4>
+                    <p>Combina neurociencia del sonido con la sabiduría del momento oportuno para una transformación completa de cuerpo, mente y espíritu.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Senderos KAIRÓS con información detallada -->
+        <div class="seccion-card fade-in">
+            <h2 class="seccion-title">Programas KAIRÓS</h2>
+            <p class="seccion-subtitle">Cada programa está diseñado para aprovechar el timing perfecto según tus necesidades</p>
+            
+            <div class="programas-grid">
+                <div class="programa-item">
+                    <div class="programa-duracion">3 DÍAS INTENSIVOS</div>
+                    <h4>KAIRÓS INTENSIVO</h4>
+                    <p><strong>La regeneración energética completa | El momento de tu transformación integral</strong></p>
+                    
+                    <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(212, 175, 55, 0.05); border-radius: 8px;">
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #d4af37;">DÍA 1: RESET DE BASE – Presente Estable</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">396 Hz – Frecuencia del Momento Seguro</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Elimina patrones de supervivencia digital y ancla tu energía en el momento presente.</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #d4af37;">DÍA 2: RESET EMOCIONAL – Corazón Presente</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">639 Hz – Frecuencia de Conexión Inmediata</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Sana la desconexión emocional y restaura vínculos auténticos en el aquí y ahora.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #d4af37;">DÍA 3: RESET MENTAL – Claridad Temporal</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">963 Hz – Frecuencia del Momento Consciente</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Alcanza estados de claridad mental perfecta y conexión con tu sabiduría interior presente.</span>
+                        </div>
+                    </div>
+                    
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #666666;">
+                        <li>Reseteo energético completo en tiempo real</li>
+                        <li>Liberación de patrones limitantes del presente</li>
+                        <li>Activación secuencial de las 7 frecuencias</li>
+                        <li>Técnicas de vocalización terapéutica avanzadas</li>
+                        <li>Desintoxicación digital del momento presente</li>
+                    </ul>
+                </div>
+                
+                <div class="programa-item">
+                    <div class="programa-duracion">2 DÍAS CREATIVOS</div>
+                    <h4>KAIRÓS CREATIVO</h4>
+                    <p><strong>El timing perfecto para crear | Flujo creativo</strong></p>
+                    
+                    <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(212, 175, 55, 0.05); border-radius: 8px;">
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #d4af37;">DÍA 1: ACTIVACIÓN CREATIVA – Flujo Presente</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">417 Hz – Frecuencia del Momento Creativo</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Libera bloqueos creativos en el instante preciso de tu potencial máximo.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #d4af37;">DÍA 2: EXPRESIÓN AUTÉNTICA – Comunicación Presente</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">741 Hz – Frecuencia de la Voz del Momento</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Desarrolla comunicación genuina libre de filtros, conectada con tu verdad presente.</span>
+                        </div>
+                    </div>
+                    
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #666666;">
+                        <li>Desbloqueio creativo instantáneo mediante frecuencias</li>
+                        <li>Conexión con la inspiración del momento presente</li>
+                        <li>Técnicas de expresión vocal auténtica</li>
+                        <li>Timing perfecto para la creatividad</li>
+                        <li>Liberación de filtros mentales creativos</li>
+                    </ul>
+                </div>
+                
+                <div class="programa-item">
+                    <div class="programa-duracion">2 DÍAS DE PODER</div>
+                    <h4>KAIRÓS DE PODER</h4>
+                    <p><strong>El momento de empoderamiento | Poder personal presente</strong></p>
+                    
+                    <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(212, 175, 55, 0.05); border-radius: 8px;">
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: #d4af37;">DÍA 1: PODER PRESENTE – Confianza del Momento</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">528 Hz – Frecuencia del Amor Propio Presente</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Activa tu poder personal auténtico más allá de la validación externa, en el momento perfecto.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #d4af37;">DÍA 2: INTUICIÓN TEMPORAL – Sabiduría del Ahora</strong><br>
+                            <span style="color: #c4a47c; font-weight: bold;">852 Hz – Frecuencia del Momento Intuitivo</span><br>
+                            <span style="color: #666666; font-size: 0.9rem;">Reconecta con tu brújula interior y toma decisiones desde tu sabiduría presente.</span>
+                        </div>
+                    </div>
+                    
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #666666;">
+                        <li>Activación del poder personal en tiempo real</li>
+                        <li>Presencia y liderazgo del momento presente</li>
+                        <li>Comunicación impactante sin validación externa</li>
+                        <li>Timing perfecto para decisiones clave</li>
+                        <li>Conexión con la intuición inmediata</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto Central -->
+        <div class="seccion-card fade-in">
+            <div class="contacto-footer" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(196, 164, 124, 0.05)); margin: 0; border-radius: 15px;">
+                <h3>Inicia tu Momento KAIRÓS</h3>
+                <p>
+                    Una nueva era en el bienestar personal. El momento perfecto es ahora.
+                </p>
+                <p style="font-size: 1.3rem; color: #d4af37; font-weight: 600; margin: 2rem 0; text-shadow: 0 2px 6px rgba(212, 175, 55, 0.3), 0 1px 3px rgba(212, 175, 55, 0.4); filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.12));">
+                    <strong>Encuentra tu momento oportuno de transformación</strong>
+                </p>
+                <p style="font-size: 1.4rem; color: #555; font-weight: 600; margin-bottom: 1.5rem;">
+                    <strong>David de la VidDa</strong>
+                </p>
+                <a href="https://wa.me/34676437076" class="whatsapp-link" target="_blank">
+                    WhatsApp - 676 43 70 76
+                </a>
+            </div>
+        </div>
+
+        <!-- Metodología -->
+        <div class="seccion-card fade-in">
+            <div class="hero-destacado">
+                <h3>Metodología Innovadora</h3>
+                <p>Desbloquea tu potencial aprovechando el momento oportuno. KAIRÓS combina técnicas ancestrales de vocalización con neurociencia moderna para crear transformaciones instantáneas y duraderas.</p>
+            </div>
+            
+            <div class="beneficios-grid">
+                <div class="beneficio-item">
+                    <h4>Timing Personalizado</h4>
+                    <p>Cada sesión se adapta a tu momento vital específico, maximizando el impacto de cada técnica aplicada.</p>
+                </div>
+                
+                <div class="beneficio-item">
+                    <h4>Vocalización Terapéutica</h4>
+                    <p>Tu voz como instrumento de sanación. Técnicas específicas para cada frecuencia y objetivo personal.</p>
+                </div>
+                
+                <div class="beneficio-item">
+                    <h4>Integración Inmediata</h4>
+                    <p>Los cambios se integran en tiempo real, permitiendo experimentar transformaciones desde la primera sesión.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="contacto-footer fade-in">
+            <h3>Inicia tu Momento KAIRÓS</h3>
+            <p>
+                Una nueva era en el bienestar personal. El momento perfecto es ahora.
+            </p>
+            <a href="https://wa.me/34676437076" class="whatsapp-link" target="_blank">
+                WhatsApp - 676 43 70 76
